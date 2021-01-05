@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
           bodyText2: TextStyle(color: Colors.white),
         ),
       ),
-      home: MyHomePage(title: 'Flutter Register Form'),
+      home: MyHomePage(title: 'Flutter Register Form App'),
     );
   }
 }
