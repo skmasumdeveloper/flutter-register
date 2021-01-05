@@ -10,7 +10,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Register Form',
+      title: 'Flutter Register Form App',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         // scaffoldBackgroundColor: Colors.blue,
