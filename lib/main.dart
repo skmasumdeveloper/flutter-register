@@ -46,6 +46,11 @@ class _MyHomePageState extends State<MyHomePage> {
     });
     print('Response status: ${response.statusCode}');
     print('Response body: ${response.body}');
+
+    setState(() {
+      name.clear();
+      password.clear();
+    });
   }
 
   @override
@@ -147,6 +152,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 children: [
                   Container(
                     width: 200,
+                    height: 40,
                     child: RaisedButton(
                       color: Colors.green,
                       textColor: Colors.white,
@@ -157,6 +163,9 @@ class _MyHomePageState extends State<MyHomePage> {
                         senddata();
                       },
                     ),
+                  ),
+                  SizedBox(
+                    height: 30,
                   ),
                   Container(
                     width: 200,
