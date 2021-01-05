@@ -38,9 +38,9 @@ class _MyHomePageState extends State<MyHomePage> {
   TextEditingController password = new TextEditingController();
   bool _showPassword = false;
 
-  Future<List> senddata() async {
-    final response = await http
-        .post("http://192.168.31.103/flutterform/register.php", body: {
+  Future<void> senddata() async {
+    final response =
+        await http.post("http://192.168.29.50/flutterform/register.php", body: {
       'username': name.text,
       'password': password.text,
     });
