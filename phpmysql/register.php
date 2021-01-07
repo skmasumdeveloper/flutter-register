@@ -12,13 +12,13 @@
 	$result = mysqli_query($db,$sql);
 	$count = mysqli_num_rows($result);
 
-	if ($count == 1) {
-		echo json_encode("Error");
+        if ($count == 1) {
+		echo json_encode(array("msg1"=>"success", "msg2"=>"User Already Exist" ));
 	}else{
 		$insert = "INSERT INTO login(username,password)VALUES('".$username."','".$password."')";
 		$query = mysqli_query($db,$insert);
 		if ($query) {
-			echo json_encode("Success");
+			echo json_encode(array("msg1"=>"success", "msg2"=>"Register Success" ));
 		}
 	}
 
