@@ -18,7 +18,7 @@
 		$insert = "INSERT INTO login(username,password)VALUES('".$username."','".$password."')";
 		$query = mysqli_query($db,$insert);
 		if ($query) {
-			echo json_encode(array("msg1"=>"success", "msg2"=>"hoye gache" ));
+			echo json_encode(array("msg1"=>"success", "msg2"=>"Register Success" ));
 		}
 	}
 
