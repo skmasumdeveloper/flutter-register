@@ -1,5 +1,7 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:formapp/Screens/login.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'dart:async';
@@ -217,7 +219,15 @@ class _RegisterPageState extends State<RegisterPage> {
                               fontFamily: 'SFUIDisplay',
                               color: Color(0xffff2d55),
                               fontSize: 20,
-                            ))
+                            ),
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = () {
+                                print("login clicked");
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => LoginPage()));
+                              })
                       ]),
                     ),
                   ),
