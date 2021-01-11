@@ -17,7 +17,7 @@ class LoginPage extends StatelessWidget {
               decoration: BoxDecoration(
                   image: DecorationImage(
                       // image: AssetImage('Assets/image1.png'),
-                      image: AssetImage(''),
+                      image: AssetImage('Assets/imagelogin.gif'),
                       fit: BoxFit.fill,
                       alignment: Alignment.topCenter)),
             ),
