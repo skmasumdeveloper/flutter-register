@@ -1,11 +1,53 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:formapp/Screens/profile.dart';
 import 'package:formapp/Screens/register.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'dart:async';
 
-class LoginPage extends StatelessWidget {
+import 'package:shared_preferences/shared_preferences.dart';
+
+class LoginPage extends StatefulWidget {
+  @override
+  _LoginPageState createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  final name = TextEditingController();
+  final password = TextEditingController();
+  var failmsg;
+  var apimsg;
+  var apiuserid;
+
+  Future<void> loginsend() async {
+    final loginapiurl = await http.post(
+      'http://192.168.31.103/flutterform/login.php',
+      body: {
+        'username': name.text,
+        'password': password.text,
+      },
+    );
+
+    apimsg = json.decode(loginapiurl.body)['msg'];
+    apiuserid = json.decode(loginapiurl.body)['userid'];
+
+    if (apimsg == "1") {
+      final SharedPreferences sharedPreferences =
+          await SharedPreferences.getInstance();
+      sharedPreferences.setString('usersaveid', apiuserid);
+
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => MyProfile(passid: apiuserid),
+        ),
+      );
+    } else {
+      failmsg = "Invalid Username & Password";
+      setState(() {});
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -33,6 +75,17 @@ class LoginPage extends StatelessWidget {
                   padding: EdgeInsets.all(23),
                   child: ListView(
                     children: <Widget>[
+                      failmsg != null
+                          ? Text(
+                              failmsg,
+                              style: TextStyle(
+                                color: Colors.red,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 15,
+                                // fontFamily: 'SFUIDisplay',
+                              ),
+                            )
+                          : Container(),
                       Text(
                         "Sign in",
                         style: TextStyle(
@@ -47,6 +100,7 @@ class LoginPage extends StatelessWidget {
                         child: Container(
                           color: Color(0xfff5f5f5),
                           child: TextFormField(
+                            controller: name,
                             style: TextStyle(
                                 color: Colors.black, fontFamily: 'SFUIDisplay'),
                             decoration: InputDecoration(
@@ -67,6 +121,7 @@ class LoginPage extends StatelessWidget {
                       Container(
                         color: Color(0xfff5f5f5),
                         child: TextFormField(
+                          controller: password,
                           obscureText: true,
                           style: TextStyle(
                               color: Colors.black, fontFamily: 'SFUIDisplay'),
@@ -87,7 +142,9 @@ class LoginPage extends StatelessWidget {
                       Padding(
                         padding: EdgeInsets.only(top: 20),
                         child: MaterialButton(
-                          onPressed: () {}, //since this is only a UI app
+                          onPressed: () {
+                            loginsend();
+                          }, //since this is only a UI app
                           child: Text(
                             'SIGN IN',
                             style: TextStyle(
