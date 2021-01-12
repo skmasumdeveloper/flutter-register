@@ -22,7 +22,7 @@ class _LoginPageState extends State<LoginPage> {
 
   Future<void> loginsend() async {
     final loginapiurl = await http.post(
-      'http://192.168.31.103/flutterform/login.php',
+      'https://skmasum.tech/flutterapi/flutform/login.php',
       body: {
         'username': name.text,
         'password': password.text,

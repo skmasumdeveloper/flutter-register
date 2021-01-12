@@ -22,7 +22,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
   Future<void> senddata() async {
     final response = await http
-        .post("http://192.168.31.103/flutterform/register.php", body: {
+        .post("https://skmasum.tech/flutterapi/flutform/register.php", body: {
       'username': name.text,
       'password': password.text,
     });
