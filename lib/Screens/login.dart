@@ -19,6 +19,9 @@ class _LoginPageState extends State<LoginPage> {
   var failmsg;
   var apimsg;
   var apiuserid;
+  var logedata;
+
+  Future<SharedPreferences> dataprefs = SharedPreferences.getInstance();
 
   Future<void> loginsend() async {
     final loginapiurl = await http.post(
@@ -33,9 +36,12 @@ class _LoginPageState extends State<LoginPage> {
     apiuserid = json.decode(loginapiurl.body)['userid'];
 
     if (apimsg == "1") {
-      final SharedPreferences sharedPreferences =
-          await SharedPreferences.getInstance();
-      sharedPreferences.setString('usersaveid', apiuserid);
+      SharedPreferences prefs = await dataprefs;
+
+      setState(() {
+        prefs.setString('usersaveid', apiuserid);
+      });
+      print(logedata);
 
       Navigator.of(context).push(
         MaterialPageRoute(

@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:formapp/Screens/profile.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import 'Screens/login.dart';
 import 'Screens/register.dart';
 
@@ -13,21 +12,36 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  String logedata;
+  var logedata;
+
+  Future<SharedPreferences> dataprefs = SharedPreferences.getInstance();
+
+  void incrementCounter() async {
+    SharedPreferences prefs = await dataprefs;
+
+    setState(() {
+      prefs.setString('usersaveid', '38');
+    });
+    print(logedata);
+  }
 
   @override
   void initState() {
     super.initState();
+    // incrementCounter();
+    dhoom();
+  }
 
+  void dhoom() async {
+    final SharedPreferences prefs = await dataprefs;
+    setState(() {
+      logedata = prefs.getString('usersaveid');
+      print(logedata);
+    });
     getchecklogin();
   }
 
   Future getchecklogin() async {
-    final SharedPreferences sharedPreferences =
-        await SharedPreferences.getInstance();
-    var mysavedid = sharedPreferences.getString('usersaveid');
-    logedata = mysavedid;
-
     if (logedata == null) {
       Navigator.of(context)
           .push(MaterialPageRoute(builder: (context) => LoginPage()));
